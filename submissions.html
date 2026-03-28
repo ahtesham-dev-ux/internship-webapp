@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submissions - Enterprise Intern Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sys-layout">
+
+    <div id="toast-container" class="toast-container"></div>
+    
+    <!-- Modal Backdrop -->
+    <div id="task-modal" class="modal-backdrop hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h4 id="modal-title">Task Preview</h4>
+                <button class="modal-close" onclick="App.closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-meta">
+                    <span class="meta-tag" id="modal-category">Category</span>
+                    <span class="meta-tag" id="modal-date">Date</span>
+                    <span class="m-badge" id="modal-status">Status</span>
+                </div>
+                <div class="modal-content">
+                    <h5>Executive Summary</h5>
+                    <p id="modal-desc">Description text...</p>
+                </div>
+                <div class="modal-logs">
+                    <h5>System Logs</h5>
+                    <ul>
+                        <li><i class="fa-brands fa-git-alt"></i> Task submitted by user system ID.</li>
+                        <li><i class="fa-solid fa-shield-blank"></i> Waiting for managerial audit phase.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="App.closeModal()">Close Window</button>
+                <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Download Artifacts</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Sidebar -->
+    <nav class="sys-sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-shapes"></i>
+            <span>NEXUS PORTAL</span>
+        </div>
+        
+        <div class="sidebar-menu">
+            <p class="menu-label">MAIN NAVIGATION</p>
+            <a href="dashboard.html" class="menu-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Overview Dashboard</span>
+            </a>
+            <a href="submit.html" class="menu-item">
+                <i class="fa-solid fa-file-arrow-up"></i>
+                <span>Submit Deliverable</span>
+            </a>
+            <a href="submissions.html" class="menu-item active">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Task Repository</span>
+            </a>
+
+            <p class="menu-label" style="margin-top:20px;">USER SETTINGS</p>
+            <a href="profile.html" class="menu-item">
+                <i class="fa-regular fa-id-card"></i>
+                <span>My Profile</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <div class="sys-status">
+                <span class="status-dot"></span> System Online
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main View -->
+    <main class="sys-main">
+        <!-- Top Application Bar -->
+        <header class="sys-topbar">
+            <div class="topbar-left">
+                <h2 class="view-title">Deliverable Repository</h2>
+            </div>
+            <div class="topbar-right">
+                <!-- Dark Mode Toggle -->
+                <button class="sys-btn-icon" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <div class="user-menu">
+                    <div class="user-avatar" id="header-avatar">US</div>
+                    <div class="user-details">
+                        <span class="user-name display-name">User</span>
+                        <a href="#" onclick="App.logout()" class="logout-link">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="sys-content">
+            <div class="sys-panel no-pad">
+                <!-- Tabular Data Toolbar -->
+                <div class="table-toolbar">
+                    <div class="toolbar-search">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="search-tasks" class="sys-input" placeholder="Search title or ID...">
+                    </div>
+                    <div class="toolbar-filters">
+                        <select id="status-filter" class="sys-select">
+                            <option value="all">View All Statuses</option>
+                            <option value="Pending">Pending Audit</option>
+                            <option value="Approved">Verified/Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                        <button class="btn btn-secondary btn-icon" onclick="App.renderSubmissionsTable()"><i class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Enterprise Data Table -->
+                <div class="table-container">
+                    <table class="sys-table">
+                        <thead>
+                            <tr>
+                                <th width="10%">TASK ID</th>
+                                <th width="35%">DELIVERABLE DETAILS</th>
+                                <th width="15%">DEPARTMENT</th>
+                                <th width="15%">FILED DATE</th>
+                                <th width="15%">AUDIT STATUS</th>
+                                <th width="10%">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tasks-table-body">
+                            <!-- Populated via script.js -->
+                        </tbody>
+                    </table>
+                    
+                    <div id="table-empty" class="table-empty hidden">
+                        <i class="fa-solid fa-inbox"></i>
+                        <h4>No Data Found</h4>
+                        <p>No records match your query parameters.</p>
+                    </div>
+                </div>
+                
+                <div class="table-footer">
+                    <span>Showing matching records</span>
+                    <div class="pagination">
+                        <button class="btn btn-secondary btn-icon" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                        <span>1 of 1</span>
+                        <button class="btn btn-secondary btn-icon" disabled><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

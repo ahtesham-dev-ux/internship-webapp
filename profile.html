@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings - Enterprise Intern Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sys-layout">
+
+    <div id="toast-container" class="toast-container"></div>
+    
+    <!-- System Sidebar -->
+    <nav class="sys-sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-shapes"></i>
+            <span>NEXUS PORTAL</span>
+        </div>
+        
+        <div class="sidebar-menu">
+            <p class="menu-label">MAIN NAVIGATION</p>
+            <a href="dashboard.html" class="menu-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Overview Dashboard</span>
+            </a>
+            <a href="submit.html" class="menu-item">
+                <i class="fa-solid fa-file-arrow-up"></i>
+                <span>Submit Deliverable</span>
+            </a>
+            <a href="submissions.html" class="menu-item">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Task Repository</span>
+            </a>
+
+            <p class="menu-label" style="margin-top:20px;">USER SETTINGS</p>
+            <a href="profile.html" class="menu-item active">
+                <i class="fa-regular fa-id-card"></i>
+                <span>My Profile</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <div class="sys-status">
+                <span class="status-dot"></span> System Online
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main View -->
+    <main class="sys-main">
+        <!-- Top Application Bar -->
+        <header class="sys-topbar">
+            <div class="topbar-left">
+                <h2 class="view-title">User Profile Settings</h2>
+            </div>
+            <div class="topbar-right">
+                <!-- Dark Mode Toggle -->
+                <button class="sys-btn-icon" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <div class="user-menu">
+                    <div class="user-avatar" id="header-avatar">US</div>
+                    <div class="user-details">
+                        <span class="user-name display-name">User</span>
+                        <a href="#" onclick="App.logout()" class="logout-link">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="sys-content">
+            <div class="dashboard-split">
+                <!-- Profile Avatar Card -->
+                <div class="panel-section flex-1 align-center">
+                    <div class="panel-heading">Identity Data</div>
+                    <div class="profile-avatar-large" id="profile-avatar">US</div>
+                    <h3 class="profile-name pt-mt display-name">Jane Smith</h3>
+                    <p class="profile-role">Corporate Intern</p>
+                    <hr class="panel-divider">
+                    <button class="btn btn-secondary btn-block">Change Avatar</button>
+                    <p class="help-text">Company directory dictates standard images. PNG/JPG < 2MB.</p>
+                </div>
+
+                <!-- Editing Form -->
+                <div class="panel-section flex-2">
+                    <div class="panel-heading">Modify System Information</div>
+                    <form id="profile-form" class="sys-form" style="margin-top: 20px;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="prof-name" class="sys-input" value="Jane Smith">
+                            </div>
+                            <div class="form-group">
+                                <label>Job Title / Role</label>
+                                <input type="text" class="sys-input" value="Corporate Intern" disabled>
+                                <span class="help-text">Contact HR to modify official title.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row" style="margin-top:20px;">
+                            <div class="form-group">
+                                <label>Corporate Registered Email</label>
+                                <input type="email" id="prof-email" class="sys-input" value="j.smith@company.com" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Direct Line (Phone)</label>
+                                <input type="tel" id="prof-phone" class="sys-input" placeholder="+1 (555) 000-0000">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:20px;">
+                            <label>Bio / Internal Notes</label>
+                            <textarea id="prof-bio" class="sys-textarea" rows="4" placeholder="Brief system note about your intern goals..."></textarea>
+                        </div>
+
+                        <div class="form-actions right">
+                            <button type="submit" class="btn btn-primary" id="save-profile-btn">
+                                <span class="btn-text">Save Changes</span>
+                                <i class="fa-solid fa-circle-notch fa-spin loader hidden"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

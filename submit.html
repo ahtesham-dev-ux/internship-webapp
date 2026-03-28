@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Task - Enterprise Intern Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sys-layout">
+
+    <div id="toast-container" class="toast-container"></div>
+    
+    <!-- System Sidebar -->
+    <nav class="sys-sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-shapes"></i>
+            <span>NEXUS PORTAL</span>
+        </div>
+        
+        <div class="sidebar-menu">
+            <p class="menu-label">MAIN NAVIGATION</p>
+            <a href="dashboard.html" class="menu-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Overview Dashboard</span>
+            </a>
+            <a href="submit.html" class="menu-item active">
+                <i class="fa-solid fa-file-arrow-up"></i>
+                <span>Submit Deliverable</span>
+            </a>
+            <a href="submissions.html" class="menu-item">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Task Repository</span>
+            </a>
+
+            <p class="menu-label" style="margin-top:20px;">USER SETTINGS</p>
+            <a href="profile.html" class="menu-item">
+                <i class="fa-regular fa-id-card"></i>
+                <span>My Profile</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <div class="sys-status">
+                <span class="status-dot"></span> System Online
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main View -->
+    <main class="sys-main">
+        <!-- Top Application Bar -->
+        <header class="sys-topbar">
+            <div class="topbar-left">
+                <h2 class="view-title">Submit Deliverable</h2>
+            </div>
+            <div class="topbar-right">
+                <!-- Dark Mode Toggle -->
+                <button class="sys-btn-icon" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                
+                <div class="user-menu">
+                    <div class="user-avatar" id="header-avatar">US</div>
+                    <div class="user-details">
+                        <span class="user-name display-name">User</span>
+                        <a href="#" onclick="App.logout()" class="logout-link">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="sys-content">
+            <div class="form-container">
+                <div class="sys-panel">
+                    <div class="panel-heading">New Task Entry form</div>
+                    <p class="panel-desc">All fields marked with an asterisk (*) are required by management.</p>
+                    <hr class="panel-divider">
+                    
+                    <form id="submission-form" class="sys-form">
+                        <div class="form-group">
+                            <label>Deliverable Title <span class="req">*</span></label>
+                            <input type="text" id="task-title" class="sys-input" placeholder="Enter objective title..." required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Department Category <span class="req">*</span></label>
+                                <select id="task-category" class="sys-select" required>
+                                    <option value="" disabled selected>Select category...</option>
+                                    <option value="Engineering">Engineering & Dev</option>
+                                    <option value="Product">Product Management</option>
+                                    <option value="Design">UI/UX Design</option>
+                                    <option value="Marketing">Marketing/Sales</option>
+                                    <option value="Operations">Operations</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Completion Date <span class="req">*</span></label>
+                                <input type="date" id="task-date" class="sys-input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Executive Summary & Details <span class="req">*</span></label>
+                            <textarea id="task-desc" class="sys-textarea" rows="6" placeholder="Document methodologies used, dependencies, and business impact..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Supporting Evidence <span class="opt">(Optional)</span></label>
+                            <div class="upload-zone" id="file-drop">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <span>Drag and drop assets here</span>
+                                <span class="upload-subtext">or <a href="#" onclick="document.getElementById('file-input').click(); return false;">Browse Files</a> (Max 50MB)</span>
+                                <input type="file" id="file-input" multiple class="hidden-input">
+                            </div>
+                            <!-- Uploaded file visual list -->
+                            <div id="file-list" class="upload-list"></div>
+                        </div>
+
+                        <div class="form-actions right">
+                            <button type="reset" class="btn btn-secondary" onclick="App.clearFiles()">Reset Form</button>
+                            <button type="submit" class="btn btn-primary" id="submit-btn-action">
+                                <span class="btn-text">Submit for Review</span>
+                                <i class="fa-solid fa-circle-notch fa-spin loader hidden"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

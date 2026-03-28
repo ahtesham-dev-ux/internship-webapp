@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Enterprise Intern Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sys-layout">
+
+    <div id="toast-container" class="toast-container"></div>
+    
+    <!-- System Sidebar -->
+    <nav class="sys-sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-shapes"></i>
+            <span>NEXUS PORTAL</span>
+        </div>
+        
+        <div class="sidebar-menu">
+            <p class="menu-label">MAIN NAVIGATION</p>
+            <a href="dashboard.html" class="menu-item active">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Overview Dashboard</span>
+            </a>
+            <a href="submit.html" class="menu-item">
+                <i class="fa-solid fa-file-arrow-up"></i>
+                <span>Submit Deliverable</span>
+            </a>
+            <a href="submissions.html" class="menu-item">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Task Repository</span>
+            </a>
+
+            <p class="menu-label" style="margin-top:20px;">USER SETTINGS</p>
+            <a href="profile.html" class="menu-item">
+                <i class="fa-regular fa-id-card"></i>
+                <span>My Profile</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <div class="sys-status">
+                <span class="status-dot"></span> System Online
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main View -->
+    <main class="sys-main">
+        <!-- Top Application Bar -->
+        <header class="sys-topbar">
+            <div class="topbar-left">
+                <h2 class="view-title">Overview Dashboard</h2>
+            </div>
+            <div class="topbar-right">
+                <!-- Dark Mode Toggle -->
+                <button class="sys-btn-icon" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                
+                <!-- Notification Bell -->
+                <div class="notification-wrapper">
+                    <button class="sys-btn-icon" id="notif-toggle">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notif-badge">2</span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notif-panel hidden" id="notif-panel">
+                        <div class="panel-header">System Notifications</div>
+                        <div class="panel-body">
+                            <div class="notif-item unread">
+                                <i class="fa-solid fa-circle-check text-green"></i>
+                                <div>
+                                    <p>Task "API Docs" was <strong>Approved</strong>.</p>
+                                    <span>Just now</span>
+                                </div>
+                            </div>
+                            <div class="notif-item unread">
+                                <i class="fa-solid fa-circle-info text-blue"></i>
+                                <div>
+                                    <p>Welcome to Nexus Portal v2.0!</p>
+                                    <span>2 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Dropdown -->
+                <div class="user-menu">
+                    <div class="user-avatar" id="header-avatar">US</div>
+                    <div class="user-details">
+                        <span class="user-name display-name">User</span>
+                        <a href="#" onclick="App.logout()" class="logout-link">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="sys-content">
+            <!-- Intro Banner -->
+            <div class="banner-panel">
+                <div class="banner-info">
+                    <h3 id="welcome-text">Metrics for Current Sprint</h3>
+                    <p>Track your deliverable statuses and performance analytics below.</p>
+                </div>
+                <div class="banner-actions">
+                    <button class="btn btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> Export Report</button>
+                    <a href="submit.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Task</a>
+                </div>
+            </div>
+
+            <!-- Analytics Grid -->
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-header">Total Deliverables</div>
+                    <div class="metric-value" id="stat-total">0</div>
+                    <div class="metric-trend"><i class="fa-solid fa-arrow-up text-green"></i> 12% vs last month</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">Awaiting Review</div>
+                    <div class="metric-value text-orange" id="stat-pending">0</div>
+                    <div class="metric-trend">Requires manager action</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">Approved Tasks</div>
+                    <div class="metric-value text-green" id="stat-approved">0</div>
+                    <div class="metric-trend"><i class="fa-solid fa-arrow-up text-green"></i> High approval rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header">Failed/Rejected</div>
+                    <div class="metric-value text-red" id="stat-rejected">0</div>
+                    <div class="metric-trend">Needs revision</div>
+                </div>
+            </div>
+
+            <div class="dashboard-split">
+                <!-- Activity Feed -->
+                <div class="panel-section flex-2">
+                    <div class="panel-heading">Recent Deliverable Activity</div>
+                    <div class="activity-feed" id="recent-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- System Info Box -->
+                <div class="panel-section flex-1">
+                    <div class="panel-heading">Portal Information</div>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">Current Role</span>
+                            <span class="info-val">Software Engineering Intern</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Manager</span>
+                            <span class="info-val">Sarah Jenkins</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Sprint Cycle</span>
+                            <span class="info-val">Q3 - Wk 4</span>
+                        </div>
+                    </div>
+                    <div class="panel-heading" style="margin-top:20px;">Quick Links</div>
+                    <div class="link-list">
+                        <a href="#"><i class="fa-solid fa-book"></i> Read Company Handbook</a>
+                        <a href="#"><i class="fa-solid fa-shield-halved"></i> IT Security Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
